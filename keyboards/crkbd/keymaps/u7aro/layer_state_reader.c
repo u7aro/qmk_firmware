@@ -24,9 +24,6 @@ const char *read_layer_state(void) {
     case _GAME:
       snprintf(layer_state_str, sizeof(layer_state_str), "Layer | GAME");
       break;
-    case _WEAPON:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer | WEAPON");
-      break;
     default:
       snprintf(layer_state_str, sizeof(layer_state_str), "Layer | Undef-%ld", layer_state);
   }

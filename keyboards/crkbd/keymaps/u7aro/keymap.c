@@ -34,7 +34,6 @@ enum macro_keycodes {
 #define MT_SFES MT(MOD_LSFT, KC_ESC)
 #define G_SPC   G(KC_SPACE)
 #define MO_WEPN MO(_WEAPON)
-#define MO_AJST MO(_ADJUST)
 #define TG_GAME TG(_GAME)
 #define TG_WIN  TG(_WINDOWS)
 #define CA_DEL  LCTL(LALT(KC_DEL))
@@ -82,14 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______ , _______ , _______ , _______ , _______ , _______ ,       _______ , _______ , _______ , _______ , _______ , _______ , \
     _______ , _______ , _______ , _______ , _______ , _______ ,       _______ , _______ , _______ , _______ , _______ , _______ , \
     _______ , _______ , _______ , _______ , _______ , _______ ,       _______ , _______ , _______ , _______ , _______ , _______ , \
-                                    KC_LALT , MO_WEPN , _______ ,   _______ , MO_AJST , _______ \
-  ),
-
-  [_WEAPON] = LAYOUT( \
-    KC_TILD , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   ,       _______ , _______ , _______ , _______ , _______ , CA_DEL  , \
-    KC_RCTL , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    ,       KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT , _______ , _______ , \
-    KC_ESC  , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    ,       _______ , _______ , _______ , _______ , _______ , _______ , \
-                                    _______ , _______ , _______ ,   _______ , _______ , _______ \
+                                    KC_LALT , _______ , _______ ,   _______ , _______ , _______ \
   )
 };
 

@@ -5,8 +5,7 @@ typedef enum {
   _LOWER,
   _RAISE,
   _ADJUST,
-  _GAME,
-  _WEAPON
+  _GAME
 } CRKBD_LAYERS;
 
 extern enum CRKBD_LAYERS crkbd_layers;
