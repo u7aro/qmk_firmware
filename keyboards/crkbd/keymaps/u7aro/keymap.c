@@ -192,7 +192,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (!record->event.pressed) {
           // 離した keycode のキーと最後に押したキーが同じ（キーを単独で押して離した）場合
           if (last_pressed_kc == keycode) {
-            // Windows の IME の設定で F23 と F24 キーに日本語入力の切り替えを割り当てる想定
+            // Google 日本語入力のキーバインドの設定は以下の通りにすることを想定
+            //   直接入力: F23: ひらがな入力
+            //   入力中: F24: IME 無効
             im_lang = (keycode == IM_WIN_EN_KC) ? KC_F23 : KC_F24;
             unregister_code(keycode);
             register_code(im_lang);
@@ -211,6 +213,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         is_lgui_pressing = false;
       }
       break;
+
     case KC_LCTL:
       if (record->event.pressed) {
         is_lctl_pressing = true;
@@ -218,6 +221,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         is_lctl_pressing = false;
       }
       break;
+
     case KC_MINS:
       if (record->event.pressed) {
         // 左CTRLを押しながら - キーを押した時にESCキーを押したことにする。
@@ -237,6 +241,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       break;
+
     case KC_SCLN:
       // CMD 押しながら ; キーを押した時に [ を返す.
       // 「戻る」などで使うOSのショートカットをしやすくるための機能
@@ -248,6 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       break;
+
     case KC_QUOT:
       // CMD 押しながら ' キーを押した時に ] を返す.
       // 「進む」などで使うOSのショートカットをしやすくるための機能
@@ -259,11 +265,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       break;
+
     case QWERTY:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
+
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -272,6 +280,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       return false;
+
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
@@ -280,6 +289,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       return false;
+
     case ADJUST:
       if (record->event.pressed) {
         layer_on(_ADJUST);
@@ -287,6 +297,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_ADJUST);
       }
       return false;
+
     case RGB_RST:
       #ifdef RGB_MATRIX_ENABLE
         if (record->event.pressed) {
@@ -294,7 +305,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       #endif
       break;
-    // Mac / Windows それぞれでランチャーを起動するキーコードを出す
+
+    // Mac / Windows それぞれの環境でランチャーを起動するキーコードを送信
     case LANCHER:
       if (!record->event.pressed) {
         if (IS_LAYER_ON(_WINDOWS)) {
