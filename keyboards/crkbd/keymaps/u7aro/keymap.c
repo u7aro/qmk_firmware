@@ -283,6 +283,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           register_code(KC_LGUI);
           unregister_code(KC_LGUI);
         } else {
+          // Mac環境
+          // Alfred または Spotlight で cmd + space を設定する
           register_code(KC_LGUI);
           register_code(KC_SPACE);
           unregister_code(KC_SPACE);
