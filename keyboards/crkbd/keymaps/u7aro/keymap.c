@@ -29,8 +29,9 @@ enum macro_keycodes {
 
 #define RGB_MDF RGB_MOD
 #define RGB_MDR RGB_RMOD
-#define TG_GAME TG(_GAME)
-#define TG_WIN  TG(_WINDOWS)
+#define TO_GAME TO(_GAME)
+#define TO_MAC  TO(_QWERTY)
+#define TO_WIN  TO(_WINDOWS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
@@ -63,8 +64,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT( \
     KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , KC_F6   ,       KC_F7   , KC_F8   , KC_F9   , KC_F10  , KC_F11  , KC_F12  , \
-    RGB_TOG , RGB_HUI , RGB_SAI , RGB_VAI , RGB_SPI , RGB_MDF ,       TG_WIN  , _______ , _______ , _______ , _______ , _______ , \
-    RGB_RST , RGB_HUD , RGB_SAD , RGB_VAD , RGB_SPD , RGB_MDR ,       TG_GAME , _______ , _______ , _______ , _______ , _______ , \
+    RGB_TOG , RGB_HUI , RGB_SAI , RGB_VAI , RGB_SPI , RGB_MDF ,       _______ , _______ , _______ , _______ , _______ , _______ , \
+    RGB_RST , RGB_HUD , RGB_SAD , RGB_VAD , RGB_SPD , RGB_MDR ,       TO_MAC , TO_WIN  , TO_GAME , _______ , _______ , _______ , \
                                     _______ , _______ , _______ ,   _______ , _______ , _______ \
   ),
 
