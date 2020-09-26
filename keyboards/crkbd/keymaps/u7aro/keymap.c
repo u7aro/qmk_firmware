@@ -31,15 +31,8 @@ enum macro_keycodes {
 
 #define RGB_MDF RGB_MOD
 #define RGB_MDR RGB_RMOD
-#define MT_SFES MT(MOD_LSFT, KC_ESC)
-#define G_SPC   G(KC_SPACE)
-#define MO_WEPN MO(_WEAPON)
 #define TG_GAME TG(_GAME)
 #define TG_WIN  TG(_WINDOWS)
-#define CA_DEL  LCTL(LALT(KC_DEL))
-#define VOLDOWN KC__VOLDOWN
-#define VOLUP   KC__VOLUP
-#define MUTE    KC__MUTE
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
