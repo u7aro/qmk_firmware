@@ -8,12 +8,10 @@ extern uint8_t is_master;
  */
 
 // 単独でキーを押下した時にIMを英語に切り替えるキーコード
-#define IM_MAC_EN_KC    KC_LGUI
-#define IM_WIN_EN_KC    KC_LCTL
+#define IM_EN_KC    LOWER
 
 // 単独でキーを押下した時にIMを日本語に切り替えるキーコード
-#define IM_MAC_JA_KC    KC_RALT
-#define IM_WIN_JA_KC    KC_RALT
+#define IM_JA_KC    RAISE
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -155,39 +153,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // 特定の修飾キーを単発で押した時にIMの言語を切り替える
-  if (IS_LAYER_ON(_QWERTY)) {
-    switch (keycode) {
-      case IM_MAC_EN_KC:
-      case IM_MAC_JA_KC:
-        if (!record->event.pressed) {
-          // 離した keycode のキーと最後に押したキーが同じ（キーを単独で押して離した）場合
-          if (last_pressed_kc == keycode) {
-            im_lang = (keycode == IM_MAC_EN_KC) ? KC_LANG2 : KC_LANG1;
-            unregister_code(keycode);
-            register_code(im_lang);
-            unregister_code(im_lang);
-          }
+  switch (keycode) {
+    case IM_EN_KC:
+    case IM_JA_KC:
+      if (!record->event.pressed) {
+        if (last_pressed_kc != keycode) {
+          break;
         }
-        break;
-    }
-  } else if (IS_LAYER_ON(_WINDOWS)) {
-    switch (keycode) {
-      case IM_WIN_EN_KC:
-      case IM_WIN_JA_KC:
-        if (!record->event.pressed) {
-          // 離した keycode のキーと最後に押したキーが同じ（キーを単独で押して離した）場合
-          if (last_pressed_kc == keycode) {
-            // Google 日本語入力のキーバインドの設定は以下の通りにすることを想定
-            //   直接入力: F23: ひらがな入力
-            //   入力中: F24: IME 無効
-            im_lang = (keycode == IM_WIN_EN_KC) ? KC_F23 : KC_F24;
-            unregister_code(keycode);
-            register_code(im_lang);
-            unregister_code(im_lang);
-          }
+        if (IS_LAYER_ON(_WINDOWS)) {
+          // Google 日本語入力のキーバインドの設定は以下の通りにすることを想定
+          //   直接入力: F23: ひらがな入力
+          //   入力中: F24: IME 無効
+          im_lang = (keycode == IM_EN_KC) ? KC_F23 : KC_F24;
+        } else {
+          im_lang = (keycode == IM_EN_KC) ? KC_LANG2 : KC_LANG1;
         }
-        break;
-    }
+        unregister_code(keycode);
+        register_code(im_lang);
+        unregister_code(im_lang);
+      }
+      break;
   }
 
   switch (keycode) {
