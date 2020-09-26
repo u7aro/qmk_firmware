@@ -8,10 +8,12 @@ extern uint8_t is_master;
  */
 
 // 単独でキーを押下した時にIMを英語に切り替えるキーコード
-#define IM_EN_KC    KC_LGUI
+#define IM_MAC_EN_KC    KC_LGUI
+#define IM_WIN_EN_KC    KC_LCTL
 
 // 単独でキーを押下した時にIMを日本語に切り替えるキーコード
-#define IM_JA_KC    KC_RALT
+#define IM_MAC_JA_KC    KC_RALT
+#define IM_WIN_JA_KC    KC_RALT
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -70,8 +72,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT( \
     KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , KC_F6   ,       KC_F7   , KC_F8   , KC_F9   , KC_F10  , KC_F11  , KC_F12  , \
-    RGB_TOG , RGB_HUI , RGB_SAI , RGB_VAI , RGB_SPI , RGB_MDF ,       _______ , VOLDOWN , VOLUP   , _______ , _______ , _______ , \
-    RGB_RST , RGB_HUD , RGB_SAD , RGB_VAD , RGB_SPD , RGB_MDR ,       _______ , MUTE    , _______ , _______ , TG_GAME , TG_WIN  , \
+    RGB_TOG , RGB_HUI , RGB_SAI , RGB_VAI , RGB_SPI , RGB_MDF ,       TG_WIN  , _______ , _______ , _______ , _______ , _______ , \
+    RGB_RST , RGB_HUD , RGB_SAD , RGB_VAD , RGB_SPD , RGB_MDR ,       TG_GAME , _______ , _______ , _______ , _______ , _______ , \
                                     _______ , _______ , _______ ,   _______ , _______ , _______ \
   ),
 
@@ -167,19 +169,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // 特定の修飾キーを単発で押した時にIMの言語を切り替える
-  switch (keycode) {
-    case IM_EN_KC:
-    case IM_JA_KC:
-      if (!record->event.pressed) {
-        // 離した keycode のキーと最後に押したキーが同じ（キーを単独で押して離した）場合
-        if (last_pressed_kc == keycode) {
-          im_lang = (keycode == IM_EN_KC) ? KC_LANG2 : KC_LANG1;
-          unregister_code(keycode);
-          register_code(im_lang);
-          unregister_code(im_lang);
+  if (IS_LAYER_ON(_QWERTY)) {
+    switch (keycode) {
+      case IM_MAC_EN_KC:
+      case IM_MAC_JA_KC:
+        if (!record->event.pressed) {
+          // 離した keycode のキーと最後に押したキーが同じ（キーを単独で押して離した）場合
+          if (last_pressed_kc == keycode) {
+            im_lang = (keycode == IM_MAC_EN_KC) ? KC_LANG2 : KC_LANG1;
+            unregister_code(keycode);
+            register_code(im_lang);
+            unregister_code(im_lang);
+          }
         }
-      }
-      break;
+        break;
+    }
+  } else if (IS_LAYER_ON(_WINDOWS)) {
+    switch (keycode) {
+      case IM_WIN_EN_KC:
+      case IM_WIN_JA_KC:
+        if (!record->event.pressed) {
+          // 離した keycode のキーと最後に押したキーが同じ（キーを単独で押して離した）場合
+          if (last_pressed_kc == keycode) {
+            // Windows の IME の設定で F23 と F24 キーに日本語入力の切り替えを割り当てる想定
+            im_lang = (keycode == IM_WIN_EN_KC) ? KC_F23 : KC_F24;
+            unregister_code(keycode);
+            register_code(im_lang);
+            unregister_code(im_lang);
+          }
+        }
+        break;
+    }
   }
 
   switch (keycode) {
