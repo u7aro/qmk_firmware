@@ -30,8 +30,10 @@ enum macro_keycodes {
 #define RGB_MDR RGB_RMOD
 #define MT_SFES MT(MOD_LSFT, KC_ESC)
 #define G_SPC   G(KC_SPACE)
-#define WEAPON  MO(_WEAPON)
+#define MO_WEPN MO(_WEAPON)
+#define MO_AJST MO(_ADJUST)
 #define TG_GAME TG(_GAME)
+#define TG_WIN  TG(_WINDOWS)
 #define CA_DEL  LCTL(LALT(KC_DEL))
 #define VOLDOWN KC__VOLDOWN
 #define VOLUP   KC__VOLUP
@@ -45,6 +47,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     KC_LGUI , LOWER   , KC_SPC  ,   KC_ENT  , RAISE   , KC_RALT \
   ),
 
+  [_WINDOWS] = LAYOUT( \
+    _______ , _______ , _______ , _______ , _______ , _______ ,       _______ , _______ , _______ , _______ , _______ , _______ , \
+    _______ , _______ , _______ , _______ , _______ , _______ ,       _______ , _______ , _______ , _______ , _______ , _______ , \
+    _______ , _______ , _______ , _______ , _______ , _______ ,       _______ , _______ , _______ , _______ , _______ , _______ , \
+                                    KC_LCTL , _______ , _______ ,   _______ , _______ , _______ \
+  ),
+
   [_LOWER] = LAYOUT( \
     KC_GRV  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    ,       KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , KC_ESC  , \
     _______ , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,       KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT , KC_PGUP , XXXXXXX , \
@@ -55,14 +64,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT( \
     KC_TILD , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC ,       KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_UNDS , \
     KC_CAPS , KC_BSLS , KC_PIPE , KC_EQL  , KC_PLUS , KC_LBRC ,       KC_RBRC , KC_MINS , XXXXXXX , XXXXXXX , KC_COLN , KC_DQUO , \
-    _______ , TG_GAME , XXXXXXX , XXXXXXX , XXXXXXX , KC_LCBR ,       KC_RCBR , XXXXXXX , KC_LABK , KC_RABK , KC_QUES , _______ , \
+    _______ , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_LCBR ,       KC_RCBR , XXXXXXX , KC_LABK , KC_RABK , KC_QUES , _______ , \
                                     _______ , _______ , KC_BSPC ,   _______ , _______ , _______ \
   ),
 
   [_ADJUST] = LAYOUT( \
     KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , KC_F6   ,       KC_F7   , KC_F8   , KC_F9   , KC_F10  , KC_F11  , KC_F12  , \
     RGB_TOG , RGB_HUI , RGB_SAI , RGB_VAI , RGB_SPI , RGB_MDF ,       _______ , VOLDOWN , VOLUP   , _______ , _______ , _______ , \
-    RGB_RST , RGB_HUD , RGB_SAD , RGB_VAD , RGB_SPD , RGB_MDR ,       _______ , MUTE    , _______ , _______ , _______ , _______ , \
+    RGB_RST , RGB_HUD , RGB_SAD , RGB_VAD , RGB_SPD , RGB_MDR ,       _______ , MUTE    , _______ , _______ , TG_GAME , TG_WIN  , \
                                     _______ , _______ , _______ ,   _______ , _______ , _______ \
   ),
 
@@ -70,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______ , _______ , _______ , _______ , _______ , _______ ,       _______ , _______ , _______ , _______ , _______ , _______ , \
     _______ , _______ , _______ , _______ , _______ , _______ ,       _______ , _______ , _______ , _______ , _______ , _______ , \
     _______ , _______ , _______ , _______ , _______ , _______ ,       _______ , _______ , _______ , _______ , _______ , _______ , \
-                                    KC_LALT , WEAPON  , _______ ,   _______ , _______ , _______ \
+                                    KC_LALT , MO_WEPN , _______ ,   _______ , MO_AJST , _______ \
   ),
 
   [_WEAPON] = LAYOUT( \

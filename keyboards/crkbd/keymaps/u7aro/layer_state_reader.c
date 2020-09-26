@@ -7,7 +7,10 @@ char layer_state_str[24];
 const char *read_layer_state(void) {
   switch (get_highest_layer(layer_state)) {
     case _QWERTY:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer | DEFAULT");
+      snprintf(layer_state_str, sizeof(layer_state_str), "Layer | MAC");
+      break;
+    case _WINDOWS:
+      snprintf(layer_state_str, sizeof(layer_state_str), "Layer | WINDOWS");
       break;
     case _RAISE:
       snprintf(layer_state_str, sizeof(layer_state_str), "Layer | RAISE");

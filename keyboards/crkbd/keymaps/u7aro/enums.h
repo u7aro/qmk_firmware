@@ -1,6 +1,7 @@
 // [CRKBD layers Init] -------------------------------------------------------//
 typedef enum {
   _QWERTY,
+  _WINDOWS,
   _LOWER,
   _RAISE,
   _ADJUST,
